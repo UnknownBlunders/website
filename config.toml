@@ -1,3 +1,36 @@
-baseURL = 'http://example.org/'
+baseURL = 'http://blog.blunders.dev'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+theme = "nightfall"
+
+[menu]
+  [[menu.header]]
+    name = "blog"
+    weight = 0
+    url = "blog"
+  [[menu.header]]
+    name = "about"
+    weight = 1
+    url = "about"
+
+[params]
+author = "Ethan Norlander"
+user = "ethan"
+hostname = "blunders.dev"
+
+# readingTime = true  # Show reading time on post page
+published = true  # Show published data on post page
+
+[[params.social]]
+key = 0
+name = "github"
+url = "https://github.com/unknownblunders"
+
+[[params.social]]
+key = 2
+name = "linkedin"
+url = "https://www.linkedin.com/in/ethan-norlander-017b10187/"
+
+[[params.social]]
+key = 3
+name = "email"
+url = "mailto:example@example.com"
