@@ -10,8 +10,6 @@ spec:
   tls:
   - hosts:
     - blog.blunders.dev
-    - blunders.dev
-    - www.blunders.dev
     secretName: blunders-blog-secret-tls
   rules:
   - host: blog.blunders.dev
