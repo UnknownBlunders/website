@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blunders-blog-deployment
+  labels:
+    app: blunders-blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blunders-blog
+  template:
+    metadata:
+      labels:
+        app: blunders-blog
+    spec:
+      containers:
+      - name: blunders-blog
+        image: ghcr.io/unknownblunders/blunders-blog:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "1000Mi"
+            cpu: "1000m"

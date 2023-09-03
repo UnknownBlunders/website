@@ -1,14 +1,31 @@
 name: build and push to ghcr
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'main'
 
+env:
+  IMAGE_NAME: ghcr.io/unknownblunders/blunders-blog
+
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+
+      - name: Build image
+        run: docker build . --tag $IMAGE_NAME:latest --tag $IMAGE_NAME:${{github.sha}}
+
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+        #
+      - name: Push image
+        run: docker push $IMAGE_NAME --all-tags
 
