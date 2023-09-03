@@ -12,7 +12,7 @@ spec:
     - blog.blunders.dev
     - blunders.dev
     - www.blunders.dev
-    secretName: jellyfin-secret-tls
+    secretName: blunders-blog-secret-tls
   rules:
   - host: blog.blunders.dev
     http:

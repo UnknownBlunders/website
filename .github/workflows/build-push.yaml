@@ -25,7 +25,17 @@ jobs:
 
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-        #
+
       - name: Push image
         run: docker push $IMAGE_NAME --all-tags
+
+# by default there's only 500MiB free space on ghcr.io. You can pay for more but I'd like to not pay if possible
+      - name: Delete old images
+        uses: snok/container-retention-policy@v2
+        with:
+          image-names: $IMAGE_NAME
+          cut-off: One min ago UTC
+          keep-at-least: 1
+          account-type: personal
+          token: ${{ secrets.GITHUB_TOKEN }}
 
