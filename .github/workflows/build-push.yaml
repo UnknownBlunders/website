@@ -38,7 +38,7 @@ jobs:
       - name: Commit and push changes
         run: |
           cat manifests/deployment.yaml
-          sed -i 's/$IMAGE_NAME.*/$IMAGE_NAME:${{github.sha}}/g' manifests/deployment.yaml
+          sed -i 's/ghcr.io\/unknownblunders\/blunders-blog.*/ghcr.io\/unknownblunders\/blunders-blog:${{github.sha}}/g' manifests/deployment.yaml
           cat manifests/deployment.yaml
 
           git config --global user.name "unknownblunders"
