@@ -39,10 +39,11 @@ jobs:
         uses: fjogeleit/yaml-update-action@main
         with:
           valueFile: 'manifests/deployment.yaml'
-          propertyPath: 'spec.template.spec.containers[0].image'
+          propertyPath: 'spec.template.spec.containers.image'
           value: $IMAGE_NAME:${{github.sha}}
-          branch: main
-          createPR: false
+          branch: yaml-action
+          targetBranch: main
+          createPR: true
           message: 'Update Image Version to $IMAGE_NAME:${{github.sha}}' 
 
 # by default there's only 500MiB free space on ghcr.io. You can pay for more but I'd like to not pay if possible
