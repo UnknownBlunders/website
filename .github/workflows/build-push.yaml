@@ -35,11 +35,12 @@ jobs:
         run: docker push $IMAGE_NAME --all-tags
 
 # # Update the deployment image tag
-      - name: edit deployment yaml
-        run: sed -i 's/$IMAGE_NAME.*/$IMAGE_NAME:${{github.sha}}/g' manifests/deployment.yaml
-
       - name: Commit and push changes
         run: |
+          cat manifests/deployment.yaml
+          sed -i 's/$IMAGE_NAME.*/$IMAGE_NAME:${{github.sha}}/g' manifests/deployment.yaml
+          cat manifests/deployment.yaml
+
           git config --global user.name "unknownblunders"
           git config --global user.email "ethannor@gmail.com"
 
