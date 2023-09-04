@@ -24,33 +24,33 @@ jobs:
         with:
           submodules: 'true'
 
-# build and push the image to ghcr.io
-      - name: Build image
-        run: docker build . --tag $IMAGE_NAME:latest --tag $IMAGE_NAME:${{github.sha}}
+# # build and push the image to ghcr.io
+#       - name: Build image
+#         run: docker build . --tag $IMAGE_NAME:latest --tag $IMAGE_NAME:${{github.sha}}
 
-      - name: Log in to registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+#       - name: Log in to registry
+#         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
 
-      - name: Push image
-        run: docker push $IMAGE_NAME --all-tags
+#       - name: Push image
+#         run: docker push $IMAGE_NAME --all-tags
 
-# Update the deployment image tag
-      - name: Update Image Version in the deployment manifest
-        uses: fjogeleit/yaml-update-action@main
-        with:
-          valueFile: 'manifests/deployment.yaml'
-          propertyPath: 'spec.template.spec.containers.image'
-          value: $IMAGE_NAME:${{github.sha}}
-          branch: yaml-action
-          targetBranch: main
-          createPR: true
-          message: 'Update Image Version to $IMAGE_NAME:${{github.sha}}' 
+# # Update the deployment image tag
+#       - name: Update Image Version in the deployment manifest
+#         uses: fjogeleit/yaml-update-action@main
+#         with:
+#           valueFile: 'manifests/deployment.yaml'
+#           propertyPath: 'spec.template.spec.containers.image'
+#           value: $IMAGE_NAME:${{github.sha}}
+#           branch: yaml-action
+#           targetBranch: main
+#           createPR: true
+#           message: 'Update Image Version to $IMAGE_NAME:${{github.sha}}' 
 
 # by default there's only 500MiB free space on ghcr.io. You can pay for more but I'd like to not pay if possible
       - name: delete old contianers
         uses: actions/delete-package-versions@v4
         with: 
-          package-name: $PACKAGE_NAME
+          package-name: 'blunders-blog'
           package-type: 'container'
           token: ${{ secrets.GHCR_PAT }}
           min-versions-to-keep: 2
