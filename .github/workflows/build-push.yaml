@@ -22,6 +22,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
+          token: ${{ secrets.COMMIT_PAT }}
           submodules: 'true'
 
 # build and push the image to ghcr.io
