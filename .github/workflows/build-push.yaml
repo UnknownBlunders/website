@@ -34,29 +34,18 @@ jobs:
       - name: Push image
         run: docker push $IMAGE_NAME --all-tags
 
-# # Update the deployment image tag
-      - name: Commit and push changes
+# Update the deployment image tag
+# using actions-checkout built in token user https://github.com/actions/checkout#Push-a-commit-using-the-built-in-token
+      - name: Update file, then commit and push changes
         run: |
-          cat manifests/deployment.yaml
           sed -i 's/ghcr.io\/unknownblunders\/blunders-blog.*/ghcr.io\/unknownblunders\/blunders-blog:${{github.sha}}/g' manifests/deployment.yaml
-          cat manifests/deployment.yaml
 
-          git config --global user.name "unknownblunders"
-          git config --global user.email "ethannor@gmail.com"
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
 
           git add -A
           git commit -m "Update Image tag"
           git push
-#       - name: Update Image Version in the deployment manifest
-#         uses: fjogeleit/yaml-update-action@main
-#         with:
-#           valueFile: 'manifests/deployment.yaml'
-#           propertyPath: 'spec.template.spec.containers.image'
-#           value: ${{ env.PACKAGE_NAME }}:${{github.sha}}
-#           branch: yaml-action
-#           targetBranch: main
-#           createPR: true
-#           message: 'Update Image Version to ${{ env.PACKAGE_NAME }}:${{github.sha}}' 
 
 # by default there's only 500MiB free space on ghcr.io. You can pay for more but I'd like to not pay if possible
       - name: delete old contianers
