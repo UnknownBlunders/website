@@ -18,20 +18,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          submodules: 'true'
 
-      - name: test directory
-        run: |
-          pwd
-          ls
 
-      # - name: Build image
-      #   run: docker build . --tag $IMAGE_NAME:latest --tag $IMAGE_NAME:${{github.sha}}
+      - name: Build image
+        run: docker build . --tag $IMAGE_NAME:latest --tag $IMAGE_NAME:${{github.sha}}
 
-      # - name: Log in to registry
-      #   run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
 
-      # - name: Push image
-      #   run: docker push $IMAGE_NAME --all-tags
+      - name: Push image
+        run: docker push $IMAGE_NAME --all-tags
 
 # by default there's only 500MiB free space on ghcr.io. You can pay for more but I'd like to not pay if possible
       - name: Delete old images
