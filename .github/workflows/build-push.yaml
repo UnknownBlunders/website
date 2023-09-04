@@ -40,8 +40,8 @@ jobs:
         run: |
           sed -i 's/ghcr.io\/unknownblunders\/blunders-blog.*/ghcr.io\/unknownblunders\/blunders-blog:${{github.sha}}/g' manifests/deployment.yaml
 
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
+          git config user.name github-actions
+          git config user.email github-actions@github.com
 
           git add -A
           git commit -m "Update Image tag"
