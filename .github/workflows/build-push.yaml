@@ -10,6 +10,7 @@ on:
 
 env:
   IMAGE_NAME: ghcr.io/unknownblunders/blunders-blog
+  PACKAGE_NAME: blunders-blog
 
 jobs:
   build-and-push-image:
@@ -38,19 +39,17 @@ jobs:
         uses: fjogeleit/yaml-update-action@main
         with:
           valueFile: 'manifests/deployment.yaml'
-          propertyPath: 'spec.template.spec.containers.image'
+          propertyPath: 'spec.template.spec.containers[0].image'
           value: $IMAGE_NAME:${{github.sha}}
           branch: main
           createPR: false
           message: 'Update Image Version to $IMAGE_NAME:${{github.sha}}' 
 
 # by default there's only 500MiB free space on ghcr.io. You can pay for more but I'd like to not pay if possible
-      - name: Delete old images
-        uses: snok/container-retention-policy@v2
-        with:
-          image-names: $IMAGE_NAME
-          cut-off: One min ago UTC
-          keep-at-least: 1
-          account-type: personal
+      - name: delete old contianers
+        uses: actions/delete-package-versions@v4
+        with: 
+          package-name: $PACKAGE_NAME
+          package-type: 'container'
           token: ${{ secrets.GHCR_PAT }}
-
+          min-versions-to-keep: 2
