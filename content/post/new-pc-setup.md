@@ -8,7 +8,7 @@ tags = [
 ]
 +++
 
-# How I access my cluster on a new PC
+# DRAFT 
 
 I recently built a new PC so now I have to set everything up again. Here's what I do to get from new PC to working on my K8s cluster.
 
