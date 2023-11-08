@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: blunders-blog
-        image: ghcr.io/unknownblunders/blunders-blog:1f0c5241e80a4d47381d25d50beb5ce396234a6b
+        image: ghcr.io/unknownblunders/blunders-blog:220465fe3e9817985736a97d9ba3acb0dc6ca30d
         ports:
         - containerPort: 80
         resources:
