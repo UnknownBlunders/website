@@ -37,7 +37,7 @@ spec:
             memory: "50Mi"
             cpu: "10m"
         volumeMounts:
-          - mountPath: /var/cache/nginx/client_temp
+          - mountPath: /var/cache/nginx
             name: temp-dir
       volumes:
       - name: temp-dir
