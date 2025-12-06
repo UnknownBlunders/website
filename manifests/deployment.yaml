@@ -36,3 +36,10 @@ spec:
           limits:
             memory: "50Mi"
             cpu: "10m"
+        volumeMounts:
+          - mountPath: /var/cache/nginx/client_temp
+            name: temp-dir
+      volumes:
+      - name: temp-dir
+        emptyDir:
+          sizeLimit: 10Mi
